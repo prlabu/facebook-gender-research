@@ -15,7 +15,9 @@ from HTMLParser import HTMLParser
 
 # Given this information, I am now going to gather data from my own Facebook feed and run gendered analyses on it. I hope to pass the script on/allow people to run it from their accounts to allow people to better understand gender affects their facebook. 
 
-# After doing a bit more research, it turns out that I cannot even retrieve the data of my friends and their posts. I am limited to my friends who have installed the Facebook Graph API Explorer, or a similar app that grants permission to Facebook 
+# After doing a bit more research, it turns out that I cannot even retrieve the data of my friends and their posts. I am limited to my friends who have installed the Facebook Graph API Explorer, or a similar app that grants permission to Facebook.
+
+# I am now considering simply doing a survey of current research regarding gender in Facebook pages. This is no nearly as interesting as investigating on my own, but the Facebook API won't allow the retrieval of gender. 
 
 class MyHTMLParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
