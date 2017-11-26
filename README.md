@@ -1,3 +1,4 @@
-# Facebook Page Post Scraper
+# Investigating gender in Facebook groups and pages
 
-## Forked from https://github.com/minimaxir/facebook-page-post-scraper
+
+## Facebook Page Post Scraper forked from https://github.com/minimaxir/facebook-page-post-scraper
