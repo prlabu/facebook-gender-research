@@ -19,6 +19,14 @@ from HTMLParser import HTMLParser
 
 # I am now considering simply doing a survey of current research regarding gender in Facebook pages. This is no nearly as interesting as investigating on my own, but the Facebook API won't allow the retrieval of gender. 
 
+# I came across Wolfram|Alpha, and saw their tools to investigate analyze your Facebook information. This was attractive to me in that I thought it would be a great way to attract people - if they can visualize their own data, they might be able to see the potential of gender research. 
+
+# I wanted to do the same thing - create an app that requests the information from a user in the same way most FB applications do. As I thought about how I would request this information from my friends, I realized a website displaying information relevant to the study would be nice to have, and probably ensure credibility for friends who may doubt the request. Thus, I went through the whole process of creating a webpage, prlabu.github.io (hosted by GitHub) that integrated the "Facebook login" for users. In this way, I imagined that the Facebook post would redirect to this page, and friends could grant permission to the application "Gender on Social Media Research." After permission was granted, I planned to do simple tests on post length, post frequency, and number of likes with gender as the baseline. 
+
+# After testing with some family members, I realized that the application only granted 'public profile' information like age range, name, profile picture, and gender. I expected the change to be as simple as changing the application configuration to request more information from a user when the user logs in/grants permission. However, it turns out Facebook requires that you submit a proposal for every extra piece of information that your application requires - developers must provide screenshots explicitly revealing how their application uses the users' information. The guidelines state that applications must not use the information for purposes that don't directly benefit the user (such as creating targetted ads); because the nature of my 'application' is research, I intend to use the information exactly how Facebook restricts it. 
+
+# Another approach that I explored is asking friends and family to approve the "Facebook Graph API Explorer", which is more tailored to simple exploration as opposed to a commercialized application that the regular API lends itself well to. The problem with this approach is that it is not straightforward. The Explorer is made for developers, and it's not obvious how to grant permission to this application. Because of this, it is difficult to post on mass media. It would result in more frustration than anything, which I tested with family. This was indeed the case. 
+
 class MyHTMLParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
         flag = 'aria-label'
