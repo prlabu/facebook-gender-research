@@ -13,8 +13,11 @@ app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
 group_id = "277971882224550"
 
 # input date formatted as YYYY-MM-DD
-since_date = ""
-until_date = ""
+# since_date = ""
+# until_date = ""
+
+since_date = "2017-06-01"
+until_date = "2017-12-01"
 
 access_token = app_id + "|" + app_secret
 
@@ -86,21 +89,6 @@ def getReactionsForStatuses(base_url):
     return reactions_dict
 
 
-def getUserGender(userID):
-    # given the ID of a user, attempts to retrieve the gender of the user
-
-    base = "https://graph.facebook.com/v2.9"
-    node = "/{}/".format(userID)
-    fields = "?fields=gender"
-    parameters = "&access_token={}".format(access_token)
-    url = base + node + fields + parameters
-
-    print 'user url: ', url
-    request = request_until_succeed(url)
-    print 'received request: ', request
-    genderObj = json.loads(request)
-    print "Gender found: " , genderObj['name']
-
 
 
 
@@ -132,7 +120,6 @@ def processFacebookPageFeedStatus(status):
     status_published = status_published.strftime(
         '%Y-%m-%d %H:%M:%S')  # best time format for spreadsheet programs
     status_author = unicode_decode(status['from']['id'])
-    getUserGender(status_author)
 
     # Nested items require chaining dictionary keys.
 
