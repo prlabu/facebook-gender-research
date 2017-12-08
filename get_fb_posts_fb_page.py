@@ -9,7 +9,23 @@ except ImportError:
 
 app_id = "123474838416437"
 app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
-page_id = "reddit"
+
+
+# PAGES = [
+# 'barbie',
+# 'breakingbad',
+# 'cnn',
+# 'lego',
+# 'pinterest',
+# 'reddit',
+# 'sexandthecity',
+# 'taylorswift',
+# 'zacefron'
+# ]
+# OR
+PAGES = ["taylorswift"]
+
+
 
 # input date formatted as YYYY-MM-DD
 since_date = "2016-01-01"
@@ -181,4 +197,5 @@ def scrapeFacebookPageFeedStatus(page_id, access_token, since_date, until_date):
 
 
 if __name__ == '__main__':
-    scrapeFacebookPageFeedStatus(page_id, access_token, since_date, until_date)
+    for page_id in PAGES:
+        scrapeFacebookPageFeedStatus(page_id, access_token, since_date, until_date)

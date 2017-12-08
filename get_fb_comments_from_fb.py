@@ -9,7 +9,24 @@ except ImportError:
 
 app_id = "123474838416437"
 app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
-file_id = "dataFiles/reddit_facebook_statuses_2017-11-01_2017-12-01.csv"
+
+
+# PAGES = 
+# [
+# 'barbie' +
+# 'breakingbad' +
+# 'cnn' +
+# 'lego' +
+# 'pinterest' +
+# 'reddit' +
+# 'sexandthecity' +
+# 'taylorswift' +
+# 'zacefron'
+# ]
+# OR
+PAGES = ['zacefron']
+
+MAX_COMMENTS = 5000
 
 access_token = app_id + "|" + app_secret
 
@@ -141,14 +158,14 @@ def scrapeFacebookPageFeedComments(page_id, access_token):
             # Uncomment below line to scrape comments for a specific status_id
             # reader = [dict(status_id='5550296508_10154352768246509')]
 
-            flag2000 = False
+            flagUpperLimit = False
 
             for status in reader:
                 has_next_page = True
-                if flag2000:
+                if flagUpperLimit:
                     break
 
-                while has_next_page:
+                while has_next_page and not flagUpperLimit:
 
                     node = "/{}/comments".format(status['status_id'])
                     after = '' if after is '' else "&after={}".format(after)
@@ -173,7 +190,7 @@ def scrapeFacebookPageFeedComments(page_id, access_token):
                             has_next_subpage = True
                             sub_after = ''
 
-                            while has_next_subpage:
+                            while has_next_subpage and not flagUpperLimit:
                                 sub_node = "/{}/comments".format(comment['id'])
                                 sub_after = '' if sub_after is '' else "&after={}".format(
                                     sub_after)
@@ -203,6 +220,9 @@ def scrapeFacebookPageFeedComments(page_id, access_token):
                                         print("{} Comments Processed: {}".format(
                                             num_processed,
                                             datetime.datetime.now()))
+                                    if num_processed > MAX_COMMENTS:
+                                        flagUpperLimit = True
+                                        break               
 
                                 if 'paging' in sub_comments:
                                     if 'next' in sub_comments['paging']:
@@ -228,15 +248,19 @@ def scrapeFacebookPageFeedComments(page_id, access_token):
                     else:
                         has_next_page = False
 
-                    if num_processed >= 2001:
-                        flag2000 = True
+                    if num_processed >= MAX_COMMENTS:
+                        print 'passed: {}'.format(MAX_COMMENTS)
+                        flagUpperLimit = True
+                        break
 
         print("\nDone!\n{} Comments Processed in {}".format(
             num_processed, datetime.datetime.now() - scrape_starttime))
 
 
 if __name__ == '__main__':
-    scrapeFacebookPageFeedComments(file_id, access_token)
+    for page in PAGES: 
+        file_id = "dataFiles/" + page + "/statuses.csv"
+        scrapeFacebookPageFeedComments(file_id, access_token)
 
 
 # The CSV can be opened in all major statistical programs. Have fun! :)
