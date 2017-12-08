@@ -3,7 +3,7 @@ import csv
 import time
 import collections
 
-comments_file_id = "dataFiles/lego_facebook_comments_2017-06-01_2017-12-01.csv"
+comments_file_id = "dataFiles/pinterest_facebook_comments_2017-06-01_2017-12-01.csv"
 
 
 def unicode_decode(text):
@@ -54,8 +54,15 @@ def processFacebookComment(comment, status_id, parent_id=''):
 
 def writeFrequencies(frequencyDict, comments_file_id):
     with open( str('frequencies').join( comments_file_id.split('comments') ) , 'w') as frequencyFile:
-        w csv.writer(csvfile)
-        w.writerow(["token", "frequency"])
+        w = csv.writer(frequencyFile, dialect='excel')
+        kvList = frequencyDict.items()
+        filtered = [kv for kv in kvList if kv[1] > 1]
+        sortedList = sorted(filtered, key=lambda kv: kv[1] , reverse=True)
+
+        w.writerow(['token', 'frequency'])
+        w.writerows(sortedList)
+
+
 
 def getWordFrequencies(comments_file_id):
     frequDict = collections.defaultdict(int)
@@ -74,7 +81,7 @@ def getWordFrequencies(comments_file_id):
         for row in reader:
             comment = row['comment_message']
 
-            tokens = comment.split()
+            tokens = comment.lower().split()
 
             for token in tokens:
                 frequDict[token] += 1
