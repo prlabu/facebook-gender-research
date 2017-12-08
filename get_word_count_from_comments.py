@@ -2,8 +2,9 @@ import datetime
 import csv
 import time
 import collections
+import string
 
-comments_file_id = "dataFiles/pinterest_facebook_comments_2017-06-01_2017-12-01.csv"
+comments_file_id = "dataFiles/breakingbad/comments_2017-01-01_2017-06-01.csv"
 
 
 def unicode_decode(text):
@@ -84,7 +85,7 @@ def getWordFrequencies(comments_file_id):
             tokens = comment.lower().split()
 
             for token in tokens:
-                frequDict[token] += 1
+                frequDict[token.translate(None, string.punctuation)] += 1
     
     writeFrequencies(frequDict, comments_file_id)
 
