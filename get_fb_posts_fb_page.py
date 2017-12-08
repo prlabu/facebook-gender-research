@@ -7,13 +7,13 @@ try:
 except ImportError:
     from urllib2 import urlopen, Request
 
-app_id = "<FILL IN>"
-app_secret = "<FILL IN>"  # DO NOT SHARE WITH ANYONE!
-page_id = "cnn"
+app_id = "123474838416437"
+app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
+page_id = "Starbucks"
 
 # input date formatted as YYYY-MM-DD
-since_date = ""
-until_date = ""
+since_date = "2017-06-01"
+until_date = "2017-12-01"
 
 access_token = app_id + "|" + app_secret
 
@@ -124,7 +124,7 @@ def processFacebookPageFeedStatus(status):
 
 
 def scrapeFacebookPageFeedStatus(page_id, access_token, since_date, until_date):
-    with open('{}_facebook_statuses.csv'.format(page_id), 'w') as file:
+    with open('{}_facebook_statuses_{}_{}.csv'.format(page_id, since_date, until_date), 'w') as file:
         w = csv.writer(file)
         w.writerow(["status_id", "status_message", "link_name", "status_type",
                     "status_link", "status_published", "num_reactions",

@@ -7,9 +7,9 @@ try:
 except ImportError:
     from urllib2 import urlopen, Request
 
-app_id = "<FILL IN>"
-app_secret = "<FILL IN>"  # DO NOT SHARE WITH ANYONE!
-file_id = "cnn"
+app_id = "123474838416437"
+app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
+file_id = "reddit"
 
 access_token = app_id + "|" + app_secret
 

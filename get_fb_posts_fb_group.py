@@ -10,7 +10,7 @@ except ImportError:
 
 app_id = "123474838416437"
 app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
-group_id = "277971882224550"
+group_id = "reddit"
 
 # input date formatted as YYYY-MM-DD
 # since_date = ""
