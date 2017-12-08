@@ -9,11 +9,11 @@ except ImportError:
 
 app_id = "123474838416437"
 app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
-page_id = "Starbucks"
+page_id = "sexandthecity"
 
 # input date formatted as YYYY-MM-DD
-since_date = "2017-06-01"
-until_date = "2017-12-01"
+since_date = "2017-01-01"
+until_date = "2017-06-01"
 
 access_token = app_id + "|" + app_secret
 
