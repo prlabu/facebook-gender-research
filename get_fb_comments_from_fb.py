@@ -9,7 +9,7 @@ except ImportError:
 
 app_id = "123474838416437"
 app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
-file_id = "reddit"
+file_id = "dataFiles/reddit_facebook_statuses_2017-11-01_2017-12-01.csv"
 
 access_token = app_id + "|" + app_secret
 
@@ -118,7 +118,7 @@ def processFacebookComment(comment, status_id, parent_id=''):
 
 
 def scrapeFacebookPageFeedComments(page_id, access_token):
-    with open('{}_facebook_comments.csv'.format(file_id), 'w') as file:
+    with open( str('comments').join( file_id.split('statuses') ) , 'w') as file:
         w = csv.writer(file)
         w.writerow(["comment_id", "status_id", "parent_id", "comment_message",
                     "comment_author", "comment_published", "num_reactions",
@@ -135,14 +135,18 @@ def scrapeFacebookPageFeedComments(page_id, access_token):
         print("Scraping {} Comments From Posts: {}\n".format(
             file_id, scrape_starttime))
 
-        with open('{}_facebook_statuses.csv'.format(file_id), 'r') as csvfile:
+        with open(file_id, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
 
             # Uncomment below line to scrape comments for a specific status_id
             # reader = [dict(status_id='5550296508_10154352768246509')]
 
+            flag2000 = False
+
             for status in reader:
                 has_next_page = True
+                if flag2000:
+                    break
 
                 while has_next_page:
 
@@ -223,6 +227,9 @@ def scrapeFacebookPageFeedComments(page_id, access_token):
                             has_next_page = False
                     else:
                         has_next_page = False
+
+                    if num_processed >= 2001:
+                        flag2000 = True
 
         print("\nDone!\n{} Comments Processed in {}".format(
             num_processed, datetime.datetime.now() - scrape_starttime))
