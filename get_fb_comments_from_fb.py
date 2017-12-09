@@ -21,10 +21,13 @@ app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
 # 'reddit' +
 # 'sexandthecity' +
 # 'taylorswift' +
-# 'zacefron'
+# 'zacefron',
+# 'robertdowneyjr'
 # ]
 # OR
-PAGES = ['zacefron']
+PAGES = [
+    'justintimberlake'
+    ]
 
 MAX_COMMENTS = 5000
 

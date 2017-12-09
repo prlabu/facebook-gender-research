@@ -11,19 +11,30 @@ app_id = "123474838416437"
 app_secret = "3c677132b19795eed2cbba779a5bb229"  # DO NOT SHARE WITH ANYONE!
 
 
-# PAGES = [
-# 'barbie',
-# 'breakingbad',
-# 'cnn',
-# 'lego',
-# 'pinterest',
-# 'reddit',
-# 'sexandthecity',
-# 'taylorswift',
-# 'zacefron'
-# ]
+PAGES = [
+'barbie',
+'breakingbad',
+'cnn',
+'lego',
+'pinterest',
+'reddit',
+'sexandthecity',
+'taylorswift',
+'zacefron',
+'robertdowneyjr',
+'mileycyrus', 
+'beyonce', 
+'justinbieber', 
+'adele', 
+'selenagomez', 
+'jayz', 
+'eminem', 
+'justintimberlake'
+]
 # OR
-PAGES = ["taylorswift"]
+# PAGES = [
+
+#     ]
 
 
 
@@ -140,7 +151,7 @@ def processFacebookPageFeedStatus(status):
 
 
 def scrapeFacebookPageFeedStatus(page_id, access_token, since_date, until_date):
-    with open('{}_facebook_statuses_{}_{}.csv'.format(page_id, since_date, until_date), 'w') as file:
+    with open('dataFiles/' + page_id + '/statuses.csv', 'w') as file:
         w = csv.writer(file)
         w.writerow(["status_id", "status_message", "link_name", "status_type",
                     "status_link", "status_published", "num_reactions",
