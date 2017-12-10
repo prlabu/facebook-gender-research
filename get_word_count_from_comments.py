@@ -6,7 +6,7 @@ import string
 import stopwords
 
 
-REMOVE_STOPS = True
+REMOVE_STOPS = False
 
 # PAGES = [
 #     'barbie',

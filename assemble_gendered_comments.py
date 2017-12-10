@@ -3,48 +3,11 @@ import csv
 import time
 import collections
 import string
+import pages
 
-female_celebs = [
-'taylorswift',
-'mileycyrus', 
-'beyonce', 
-'adele', 
-'selenagomez', 
-]
 
-general_feminine = [
-'barbie',
-'pinterest',
-'sexandthecity',
-'taylorswift',
-'mileycyrus', 
-'beyonce', 
-'adele', 
-'selenagomez', 
-]
 
-male_celebs = [
-'zacefron',
-'robertdowneyjr',
-'justinbieber', 
-'jayz', 
-'eminem', 
-'justintimberlake'
-]
-
-general_masculine = [
-'breakingbad',
-'lego',
-'reddit',
-'zacefron',
-'robertdowneyjr',
-'justinbieber', 
-'jayz', 
-'eminem', 
-'justintimberlake'
-]
-
-CATEGORIES = [female_celebs, general_feminine, male_celebs, general_masculine]
+CATEGORIES = [pages.female_celebs, pages.general_feminine, pages.male_celebs, pages.general_masculine]
 CATEGORY_NAMES = ['female_celebs', 'general_feminine', 'male_celebs', 'general_masculine']
 # OR 
 # PAGES = ['reddit']
