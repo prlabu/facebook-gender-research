@@ -3,29 +3,69 @@ import csv
 import time
 import collections
 import string
+import stopwords
 
+
+REMOVE_STOPS = True
+
+# PAGES = [
+#     'barbie',
+#     'breakingbad',
+#     'cnn',
+#     'lego',
+#     'pinterest',
+#     'reddit',
+#     'sexandthecity',
+#     'taylorswift',
+#     'zacefron',
+#     'robertdowneyjr',
+#     'mileycyrus', 
+#     'beyonce', 
+#     'justinbieber', 
+#     'adele', 
+#     'selenagomez', 
+#     'jayz', 
+#     'eminem', 
+#     'justintimberlake',
+#     'female_celebs', 
+#     'general_feminine',
+#     'male_celebs',
+#     'general_masculine'
+#     ]
+
+# all pages
 PAGES = [
-'barbie',
-'breakingbad',
-'cnn',
-'lego',
-'pinterest',
-'reddit',
-'sexandthecity',
-'taylorswift',
-'zacefron',
-'robertdowneyjr',
-'mileycyrus', 
-'beyonce', 
-'justinbieber', 
-'adele', 
-'selenagomez', 
-'jayz', 
-'eminem', 
-'justintimberlake'
+    'adele', 
+    'barbie',
+    'beyonce',
+    'breakingbad',
+    'cnn',
+    'eminem',
+    'female_celebs',
+    'general_feminine',
+    'general_masculine',
+    'jayz',
+    'justinbieber',
+    'justintimberlake',
+    'lego',
+    'male_celebs',
+    'mileycyrus',
+    'pinterest',
+    'reddit',
+    'robertdowneyjr',
+    'selenagomez',
+    'sexandthecity',
+    'taylorswift',
+    'zacefron'
 ]
+
 # OR 
-# PAGES = ['reddit']
+# PAGES = [
+#     'female_celebs', 
+#     'general_feminine',
+#     'male_celebs',
+#     'general_masculine'
+#     ]
 
 # comments_file_id = "dataFiles/breakingbad/comments_2017-01-01_2017-06-01.csv"
 
@@ -69,19 +109,27 @@ def getWordFrequencies(comments_file_id):
     kvList = frequDict.items()
     filtered = [list(kv) for kv in kvList if kv[1] > 1]
     sortedList = sorted(filtered, key=lambda kv: kv[1] , reverse=True)
-    extendedInfo = [ [lst[0], lst[1], float(lst[1]) / num_comments * 100, float(lst[1]) / num_tokens * 100] for lst in sortedList]
+    extendedInfo = [ [lst[0], lst[1], '{:.4f}'.format(float(lst[1]) / num_comments * 100), '{:.4f}'.format(float(lst[1]) / num_tokens * 100)] for lst in sortedList]
 
-    # writing frequencies to file
-    with open( str('frequencies').join( comments_file_id.split('comments') ) , 'w') as frequencyFile:
-        w = csv.writer(frequencyFile, dialect='excel')
-        w.writerow(['token', 'count','frequencyPer100Comment','frequencyPer100Token'])
-        w.writerows(extendedInfo)
+    # remove 'stop words' that are non-lexical... used for grammatical purposes
+    if REMOVE_STOPS:
+        extended_info_no_stops = [token for token in extendedInfo if token[0] not in stopwords.stopwords]
+        with open( str('frequencies_removed_stops').join( comments_file_id.split('comments') ) , 'w') as frequencyFile:
+            w = csv.writer(frequencyFile, dialect='excel')
+            w.writerow(['token', 'count','frequencyPer100Comment','frequencyPer100Token'])
+            w.writerows(extended_info_no_stops)
+    else:
+        # writing frequencies to file
+        with open( str('frequencies').join( comments_file_id.split('comments') ) , 'w') as frequencyFile:
+            w = csv.writer(frequencyFile, dialect='excel')
+            w.writerow(['token', 'count','frequencyPer100Comment','frequencyPer100Token'])
+            w.writerows(extendedInfo)
 
     # author frequencies
     author_kv_list = author_frequ_dict.items()
     authors_filtered = [list(kv) for kv in author_kv_list if kv[1] > 1]
     authors_sortedList = sorted(authors_filtered, key=lambda kv: kv[1] , reverse=True)
-    authors_extendedInfo = [ [lst[0], lst[1], float(lst[1]) / num_comments * 100] for lst in authors_sortedList]
+    authors_extendedInfo = [ [lst[0], lst[1], '{:.4f}'.format(float(lst[1]) / num_comments * 100)] for lst in authors_sortedList]
 
     # writing author frequencies to file
     with open( str('author_frequencies').join( comments_file_id.split('comments') ) , 'w') as frequencyFile:
@@ -93,7 +141,10 @@ def getWordFrequencies(comments_file_id):
     with open( str('comments_summary').join( comments_file_id.split('comments') ) , 'w') as summaryFile:
         w = csv.writer(summaryFile, dialect='excel')
         w.writerow(['page_id', 'numComments','avgCommentLength'])
-        w.writerow([comments_file_id.split("/")[1], num_comments, float(num_tokens) / float(num_comments)])
+        w.writerow( 
+            [comments_file_id.split("/")[1], 
+            num_comments, 
+            '{:.4f}'.format(float(num_tokens) / float(num_comments))] )
     
 
     

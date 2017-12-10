@@ -33,21 +33,12 @@ male_celebs = [
 ]
 
 general_masculine = [
-'barbie',
 'breakingbad',
-'cnn',
 'lego',
-'pinterest',
 'reddit',
-'sexandthecity',
-'taylorswift',
 'zacefron',
 'robertdowneyjr',
-'mileycyrus', 
-'beyonce', 
 'justinbieber', 
-'adele', 
-'selenagomez', 
 'jayz', 
 'eminem', 
 'justintimberlake'
@@ -81,11 +72,17 @@ def assemble_comments(category_zipped):
 
         print("Assembling comments for category : {}\n".format(category_name))
 
+        # write header
+        with open('dataFiles/{}/comments.csv'.format(category_page_ids[0]) , 'r') as pageIDFile:
+                reader = csv.reader(pageIDFile)
+                writer.writerow(reader.next())
 
         for page_id in category_page_ids:
             with open('dataFiles/{}/comments.csv'.format(page_id) , 'r') as pageIDFile:
                 reader = csv.reader(pageIDFile)
+                reader.next()
                 for row in reader:
+                    # skip the first comment in each file
                     writer.writerow(row)
     
 
